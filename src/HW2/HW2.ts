@@ -10,10 +10,8 @@ import {
 } from "./types";
 
 export class School {
-  // implement 'add area', 'remove area', 'add lecturer', and 'remove lecturer' methods
-
   private _areas: string[] = [];
-  private _lecturers: ILecturer[] = []; // Name, surname, position, company, experience, courses, contacts
+  private _lecturers: ILecturer[] = [];
 
   get areas(): string[] {
     return this._areas;
@@ -28,18 +26,15 @@ export class School {
   }
 
   removeArea(area: string): string | void {
-    if (!this._areas.includes(area))
-      console.log(`Searched area: "${area}" is not in the list`);
-    else this._areas = this._areas.filter((areaValue) => areaValue !== area);
+    this._areas = this._areas.filter((areaValue) => areaValue !== area);
   }
 
-  addLecturer(lecturer: ILecturer) {
+  addLecturer(lecturer: ILecturer): void {
     this._lecturers.push(lecturer);
   }
 }
 
 export class Area {
-  // implement getters for fields and 'add/remove level' methods
   private _levels: Levels[] = [];
   private _areaName: string;
 
@@ -65,8 +60,6 @@ export class Area {
 }
 
 export class Level {
-  // implement getters for fields and 'add/remove group' methods
-
   private _groups: IGroup[] = [];
   private _levelName: string;
   private _description: string;
@@ -94,18 +87,16 @@ export class Level {
 }
 
 export class Group {
-  // implement getters for fields and 'add/remove student' and 'set status' methods
-
   _status: GroupStatuses = GroupStatuses.NoStatus;
-  _students: IStudent[] = []; // Modify the array so that it has a valid toSorted method*
-
-  get students(): IStudent[] {
-    return this._students;
-  }
+  _students: IStudent[] = [];
 
   constructor(public area: string, public levelName: Levels) {
     this.area = area;
     this.levelName = levelName;
+  }
+
+  get students(): IStudent[] {
+    return this._students;
   }
 
   get status(): GroupStatuses {
@@ -139,13 +130,11 @@ export class Group {
 }
 
 export class Student {
-  // implement 'set grade' and 'set visit' methods
-
   firstName: string;
   lastName: string;
   birthYear: number;
-  private _grades: Grades[] = []; // workName: mark
-  private _visits: Visits[] = []; // lesson: present
+  private _grades: Grades[] = [];
+  private _visits: Visits[] = [];
 
   constructor(firstName: string, lastName: string, birthYear: number) {
     this.firstName = firstName;
@@ -166,9 +155,7 @@ export class Student {
   }
 
   setGrade(subject: string, grade: number): void {
-    if (this._grades.find((gradeData) => gradeData[subject]))
-      console.log("Subject is already added");
-    else this._grades.push({ [subject]: grade });
+    this._grades.push({ [subject]: grade });
   }
 
   setVisit(lesson: string, attendance: boolean): void {
@@ -177,7 +164,7 @@ export class Student {
 
   getPerformanceRating(): number {
     const gradeValues: number[] = this._grades.reduce((acc: number[], val) => {
-      const [mark] = Object.values(val);
+      const [mark]: number[] = Object.values(val);
       acc.push(mark);
       return acc;
     }, []);

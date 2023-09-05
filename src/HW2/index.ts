@@ -8,13 +8,10 @@ export const runHW2 = (): void => {
   area.addLevel(Levels.Junior);
   area.addLevel(Levels.Middle, Levels.Senior);
   area.removeLevel(Levels.Junior);
-  console.log("Area Name: ", area.areaName);
-  console.log("Area Levels: ", area.levels);
 
   // School
   const springfieldSchool = new School();
   springfieldSchool.addArea(area.areaName);
-  springfieldSchool.removeArea("ololo");
   springfieldSchool.removeArea(area.areaName);
 
   springfieldSchool.addLecturer({
@@ -30,14 +27,11 @@ export const runHW2 = (): void => {
     },
   });
 
-  console.log(springfieldSchool);
-
   // Student
   const studentA = new Student("Oleg", "Cherbaiev", 1993);
   studentA.fullName = "Cherbaieff Oleg";
   studentA.setGrade("TypeScript", 50);
   studentA.setGrade("JavaScript", 80);
-  studentA.setGrade("JavaScript", 50); // Duplicate to see if fallback is added
   studentA.setVisit("Typescript", true);
   studentA.setVisit("JavaScript", false);
 
@@ -46,7 +40,6 @@ export const runHW2 = (): void => {
   studentB.setGrade("JavaScript", 100);
   studentB.setVisit("Typescript", true);
   studentB.setVisit("JavaScript", true);
-  console.log("Students: ", studentA, studentB);
 
   // Group
   const suicideSquad = new Group(area.areaName, Levels.Middle);
@@ -54,15 +47,13 @@ export const runHW2 = (): void => {
   suicideSquad.removeStudent(studentA);
   suicideSquad.addStudent(studentA);
   suicideSquad.addStudent(studentB);
-  console.log("Get group performance: ", suicideSquad.showPerformance());
-  console.log(suicideSquad);
+  suicideSquad.showPerformance();
+  console.log(suicideSquad.students);
+
   suicideSquad.setGroupStatus(GroupStatuses.Waiting);
-  console.log(suicideSquad);
 
   // Level
   const level = new Level("Something", "some description");
   level.addGroup(suicideSquad);
-
-  console.log("Level: ", level);
   level.removeGroup(suicideSquad);
 };
