@@ -13,12 +13,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Cherbaiefff/hillel/issues"
-  },
-  "homepage": "https://github.com/Cherbaiefff/hillel#readme",
   "dependencies": {
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
     "typescript": "^5.2.2"
   }
 }
