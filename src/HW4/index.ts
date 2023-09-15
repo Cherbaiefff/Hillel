@@ -1,24 +1,25 @@
 export const isString = (value: unknown): value is string => {
-  return typeof value === "string";
+  return typeof value === 'string';
 };
 
 export const runHW4 = (): void => {
   // Напишите функцию isString, которая проверяет, является ли переданное значение строкой, и используйте ее для ограничения типа переменной.
   const isString = (value: unknown): value is string => {
-    return typeof value === "string";
+    return typeof value === 'string';
   };
 
-  console.log(isString(1));
+  isString(1);
 
   // У вас есть массив с элементами разных типов. Напишите функцию, которая принимает этот массив и фильтрует его,
   // чтобы в итоге остались только строки. Используйте проверку типа для этой задачи.
-  const randomListOfValues: any[] = [true, "1", 8, "ololo", { name: "OLOLO" }];
+  const randomListOfValues: any[] = [true, '1', 8, 'ololo', { name: 'OLOLO' }];
 
   const filterList = (list: typeof randomListOfValues): string[] => {
-    return list.filter((value) => isString(value));
+    const filtered: string[] = list.filter(value => isString(value));
+    return filtered;
   };
 
-  console.log(filterList(randomListOfValues));
+  filterList(randomListOfValues);
 
   // У вас есть объект, который может содержать произвольные свойства.
   // Напишите функцию, которая принимает этот объект и возвращает значение одного из свойств, если оно существует и имеет определенный тип.
@@ -32,17 +33,16 @@ export const runHW4 = (): void => {
   const car: Car = {
     wheels: 4,
     isElectric: true,
-    model: "Tesla",
+    model: 'Tesla',
     isFast: true,
   };
 
   const isElectric = (isElectric: boolean): isElectric is boolean => {
-    return typeof isElectric === "boolean";
+    return typeof isElectric === 'boolean';
   };
 
   const getProperty = (obj: Car): boolean => {
-    if ("isElectric" in obj && isElectric(obj.isElectric))
-      return obj.isElectric;
+    if ('isElectric' in obj && isElectric(obj.isElectric)) return obj.isElectric;
 
     return false;
   };
@@ -53,18 +53,18 @@ export const runHW4 = (): void => {
   // Затем напишите функцию, которая использует эти защитники в комбинации для уточнения типа объекта до более конкретного типа.
 
   type Cat = {
-    type: "cat";
+    type: 'cat';
     meow: () => void;
     purr: boolean;
   };
 
   type Dog = {
-    type: "dog";
+    type: 'dog';
     bark: () => void;
   };
 
   const isCat = (pet: Cat | Dog): pet is Cat => {
-    return pet.type === "cat";
+    return pet.type === 'cat';
   };
 
   const hasPurrKey = (pet: Cat | Dog, key: string): pet is Cat => {
@@ -72,14 +72,17 @@ export const runHW4 = (): void => {
   };
 
   const saySmth = (pet: Cat | Dog): void => {
-    if (isCat(pet) && hasPurrKey(pet, "purr")) return pet.meow();
-    else pet.bark();
+    if (isCat(pet) && hasPurrKey(pet, 'purr')) {
+      pet.meow();
+    } else {
+      pet.bark();
+    }
   };
 
   const cat: Cat = {
-    type: "cat",
+    type: 'cat',
     meow() {
-      console.log("MEOW");
+      console.log('MEOW');
     },
     purr: true,
   };
@@ -91,7 +94,7 @@ export const runHW4 = (): void => {
   let someValue: string | number = 1;
 
   const valueIsNumber = (value: unknown): value is number => {
-    return typeof value === "number";
+    return typeof value === 'number';
   };
 
   function performOperation(value: number): number;
@@ -103,14 +106,14 @@ export const runHW4 = (): void => {
   }
 
   const exponentialNum = performOperation(someValue);
-  someValue = "ololo";
+  someValue = 'ololo';
   const upperCasedStr = performOperation(someValue);
 
   // Создайте типовой защитник, который будет проверять, является ли переданное значение функцией.
   // Затем напишите функцию, которая использует этот защитник для уточнения типа переменной и вызывает переданную функцию, если она существует.
 
-  const isFunction = (func: unknown): func is Function => {
-    return func instanceof Function;
+  const isFunction = (func: unknown): func is () => void => {
+    return typeof func === 'function';
   };
 
   const callFunc = (value: unknown): void => {
@@ -119,19 +122,26 @@ export const runHW4 = (): void => {
       return;
     }
 
-    throw new Error("Value is not a function");
+    throw new Error('Value is not a function');
   };
 
-  callFunc(() => console.log("Log something"));
+  callFunc(() => console.log('Func call'));
 
   // Создайте классы с иерархией наследования, а затем напишите функцию,
   // которая использует защитник типа для уточнения типа объектов на основе этой иерархии.
 
   class Shape {
-    constructor(private _type: string, public color: string) {}
+    private _type: string;
 
     get type(): string {
       return this._type;
+    }
+
+    constructor(
+      type: string,
+      public color: string
+    ) {
+      this._type = type;
     }
 
     getInfo(): string {
@@ -140,7 +150,11 @@ export const runHW4 = (): void => {
   }
 
   class Circle extends Shape {
-    constructor(type: string, color: string, public radius: number) {
+    constructor(
+      type: string,
+      color: string,
+      public radius: number
+    ) {
       super(type, color);
     }
 
@@ -150,7 +164,11 @@ export const runHW4 = (): void => {
   }
 
   class Square extends Shape {
-    constructor(type: string, color: string, public sideLength: number) {
+    constructor(
+      type: string,
+      color: string,
+      public sideLength: number
+    ) {
       super(type, color);
     }
 
@@ -160,13 +178,13 @@ export const runHW4 = (): void => {
   }
 
   const isSquare = (shape: Circle | Square): shape is Square => {
-    return shape instanceof Shape && shape.type === "square";
+    return shape instanceof Shape && shape.type === 'square';
   };
 
   const getShapeArea = (shape: Circle | Square): number => {
     return isSquare(shape) ? shape.getSquareArea() : shape.getCirleArea();
   };
 
-  const cirle = new Circle("circle", "purple", 20);
+  const cirle = new Circle('circle', 'purple', 20);
   getShapeArea(cirle);
 };
