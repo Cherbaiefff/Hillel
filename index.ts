@@ -1,2 +1,2 @@
-import { runHW5 } from './src/HW5/index';
-runHW5();
+import { runHW3 } from './src/HW3';
+runHW3();
