@@ -19,6 +19,8 @@ export interface ICurrentEmployee extends IEmployee {
   changePaymentDetails: (paymentDetails: IPaymentDetails) => void;
 }
 
+export type AllEmployees = (IRecentlyHiredEmployee | ICurrentEmployee)[];
+
 export interface IPaymentDetails {
   bankAccNumber: number;
   taxValue: number;
