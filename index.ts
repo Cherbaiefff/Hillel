@@ -1,2 +1,3 @@
-import { runHW3 } from './src/HW3';
-runHW3();
+import { runHW6 } from './src/HW6';
+
+runHW6();
