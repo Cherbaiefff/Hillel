@@ -1,3 +1,3 @@
-import { runHW8 } from './src/HW8';
+import { runH9 } from './src/HW9';
 
-runHW8();
+runH9();
